@@ -42,6 +42,7 @@ app.post('/api/auth/invite', protect, authController.inviteUser); // Protected
 app.post('/api/auth/set-password', authController.setPassword); // Public
 app.get('/api/tasks', protect, taskController.getTasks); // Protected
 app.post('/api/tasks/sync', protect, taskController.syncTask); // Protected
+app.delete('/api/tasks/:id', protect, taskController.deleteTask); // Protected
 app.get('/api/users', protect, userController.getUsers); // Protected
 
 // Root
