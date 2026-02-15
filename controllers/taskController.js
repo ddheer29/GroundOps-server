@@ -15,6 +15,7 @@ const getTasks = async (req, res) => {
       organization: req.user.organization,
     });
     const tasks = await Task.find({ organization: req.user.organization })
+      .populate('assignedTo', 'username role')
       .skip(skip)
       .limit(limit);
 
@@ -65,7 +66,7 @@ const syncTask = async (req, res) => {
     const updatedTask = await Task.findByIdAndUpdate(data._id, updateData, {
       new: true,
       upsert: true,
-    });
+    }).populate('assignedTo', 'username role');
 
     console.log(
       `Synced task: ${updatedTask._id} (${updatedTask.title}) for Org: ${req.user.organization}`,
