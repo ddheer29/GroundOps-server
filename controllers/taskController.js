@@ -15,7 +15,7 @@ const getTasks = async (req, res) => {
       organization: req.user.organization,
     });
     const tasks = await Task.find({ organization: req.user.organization })
-      .populate('assignedTo', 'username role')
+      .populate("assignedTo", "username role")
       .skip(skip)
       .limit(limit);
 
@@ -66,7 +66,7 @@ const syncTask = async (req, res) => {
     const updatedTask = await Task.findByIdAndUpdate(data._id, updateData, {
       new: true,
       upsert: true,
-    }).populate('assignedTo', 'username role');
+    }).populate("assignedTo", "username role");
 
     console.log(
       `Synced task: ${updatedTask._id} (${updatedTask.title}) for Org: ${req.user.organization}`,
@@ -99,7 +99,9 @@ const deleteTask = async (req, res) => {
     const deletedTask = await Task.findByIdAndDelete(taskId);
 
     if (!deletedTask) {
-        return res.status(404).json({ message: "Task not found or already deleted" });
+      return res
+        .status(404)
+        .json({ message: "Task not found or already deleted" });
     }
     res.json({ message: "Task removed", id: taskId });
   } catch (error) {
