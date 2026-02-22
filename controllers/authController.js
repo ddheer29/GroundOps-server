@@ -22,6 +22,11 @@ const loginUser = async (req, res) => {
           res.json({
               _id: user.id,
               username: user.username,
+              name: user.name,
+              dob: user.dob,
+              joiningDate: user.joiningDate,
+              isOnLeave: user.isOnLeave,
+              profilePhoto: user.profilePhoto,
               role: user.role,
               organization: user.organization,
               token: generateToken(user._id),
@@ -159,6 +164,7 @@ const setPassword = async (req, res) => {
         user.inviteToken = undefined;
         user.inviteExpires = undefined;
         user.status = 'Active';
+        user.joiningDate = new Date(); // Set joining date when user activates account
         await user.save();
 
         res.json({ 
@@ -167,6 +173,11 @@ const setPassword = async (req, res) => {
             user: {
                 _id: user.id,
                 username: user.username,
+                name: user.name,
+                dob: user.dob,
+                joiningDate: user.joiningDate,
+                isOnLeave: user.isOnLeave,
+                profilePhoto: user.profilePhoto,
                 role: user.role,
                 organization: user.organization
             }

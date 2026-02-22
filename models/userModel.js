@@ -13,6 +13,17 @@ const userSchema = mongoose.Schema({
   token: {
     type: String, // Simplified for this demo, usually JWT generated on fly
   },
+  name: {
+      type: String,
+      // required: true // Making optional for now to avoid migration issues, but valid for new users
+  },
+  dob: Date,
+  joiningDate: Date,
+  isOnLeave: {
+      type: Boolean,
+      default: false
+  },
+  profilePhoto: String,
   organization: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Organization',
